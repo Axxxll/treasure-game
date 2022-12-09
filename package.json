@@ -1,0 +1,22 @@
+{
+  "name": "treasure-game",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Axxxll/treasure-game.git"
+  },
+  "author": "Axl",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Axxxll/treasure-game/issues"
+  },
+  "homepage": "https://github.com/Axxxll/treasure-game#readme",
+  "dependencies": {
+    "pixi.js": "^7.0.4"
+  }
+}
