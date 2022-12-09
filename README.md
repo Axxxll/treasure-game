@@ -1,2 +1,3 @@
 # treasure-game
-Install PIXI.js -- npm i pixi.js
+Install dependencies -- npm i 
+To run -- npm run dev
