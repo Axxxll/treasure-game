@@ -24,6 +24,8 @@ let cipherArray: any[] = []
 let index = 0
 let isAlive = false
 
+
+// The StopWatch will give a hint to the player in which direction they should rotate the handle based on the timer 
 class StopWatch {
     seconds: number;
     minutes: number;
@@ -135,6 +137,7 @@ class StopWatch {
 
 const sw = new StopWatch
 
+// Cipher creates an object that contains the number and direction
 class Cipher {
     number: number;
     direction: string;
@@ -177,6 +180,18 @@ const handleShadow = PIXI.Sprite.from('./images/handleShadow.png')
 handleShadow.anchor.set(0.5, 0.5)
 handleShadow.position.x += 4
 handleShadow.position.y += 20
+
+const doorOpen = PIXI.Sprite.from('./images/doorOpen.png')
+doorOpen.width = bg.width / 4
+doorOpen.height = bg.height / 1.65
+doorOpen.anchor.set(0.5)
+doorOpen.position.set(innerWidth / 1.31, innerHeight / 2.05)
+
+const doorOpenShadow = PIXI.Sprite.from('./images/doorOpenShadow.png')
+doorOpenShadow.width = bg.width / 4
+doorOpenShadow.height = bg.height / 1.65
+doorOpenShadow.anchor.set(0.5)
+doorOpenShadow.position.set(innerWidth / 1.29, innerHeight / 2)
 
 const blink = PIXI.Sprite.from('./images/blink.png')
 blink.anchor.set(0.5, 0.5)
@@ -221,8 +236,8 @@ const timerStyle = new PIXI.TextStyle({
 
 
 let timer = new PIXI.Text("00:00", timerStyle)
-timer.x = 100
-timer.y = 850
+timer.x = innerWidth / 20
+timer.y = bg.position.y + (bg.height / 1.1)
 app.stage.addChild(timer)
 
 document.onkeydown = e => {
@@ -314,7 +329,12 @@ function startGame() {
 
 function newGame() {
     sw.refresh()
+    timer.text = "00:00"
+    c.clear()
     headline.text = 'Click the handle'
+    app.stage.removeChild(doorOpen)
+    app.stage.removeChild(doorOpenShadow)
+    app.stage.removeChild(blink)
     app.stage.addChild(door)
     app.stage.addChild(container)
     bg.interactive = false
@@ -336,6 +356,8 @@ function renderGame(direction: string | null) {
                         app.stage.removeChild(container)
                         app.stage.removeChild(door)
                         app.stage.addChild(blink)
+                        app.stage.addChild(doorOpenShadow)
+                        app.stage.addChild(doorOpen)
                         headline.text = "Yooouu Win!"
                         bg.interactive = true
                         bg.cursor = 'pointer'
