@@ -365,7 +365,7 @@ class StopWatch {
                 if (this.seconds <= 9 && this.minutes >= 0) {
                     timer.text = `0${this.minutes}:0${this.seconds}`
                 }
-                if (this.seconds < 0 && this.seconds >= -9 && this.minutes < 0) {
+                if (this.seconds < 0 && this.seconds >= -9) {
                     timer.text = `-0${-this.minutes}:0${-this.seconds}`
                 }
                 if (this.seconds > 9 && this.minutes >= 0) {
@@ -387,13 +387,18 @@ class StopWatch {
                         timer.text = `-${-this.minutes}:0${this.seconds}`
                     }
                     else {
-                        timer.text = `-0${-this.minutes}:0${this.seconds}`
+                        timer.text = `0${this.minutes}:0${this.seconds}`
                     }
                 }
-                if (this.seconds === 0 && this.minutes > 0) {
+                if (this.seconds === 0 && this.minutes < 0) {
                     this.seconds = 59
                     this.minutes -= 1
-                    timer.text = `0${this.minutes}:${this.seconds}`
+                    if (this.minutes >= 0) {
+                        timer.text = `-0${this.minutes}:${-this.seconds}`
+                    }
+                    else {
+                        timer.text = `-0${-this.minutes}:0${-this.seconds}`
+                    }
                 }
             }
         }, 1000)
@@ -409,114 +414,3 @@ class StopWatch {
 }
 
 const sw = new StopWatch
-console.log(sw)
-
-// function StopWatch() {
-//     let seconds = 0
-//     let minutes = 0
-//     let duration = 0
-//     let intervalID;
-//     this.start = (direction) => {
-//         this.stop()
-//         intervalID = setInterval(() => {
-//             duration += 1
-//             if (direction === 'ArrowRight') {
-//                 seconds += 1
-//                 if (seconds <= 9 && minutes >= 0) {
-//                     timer.text = `0${minutes}:0${seconds}`
-//                 }
-//                 if (seconds < 0 && seconds >= -9) {
-//                     timer.text = `-0${-minutes}:0${-seconds}`
-//                 }
-//                 if (seconds > 9 && minutes >= 0) {
-//                     timer.text = `0${minutes}:${seconds}`
-//                 }
-//                 if (seconds < -9) {
-//                     timer.text = `-0${-minutes}:${-seconds}`
-//                 }
-//                 if (seconds === 60) {
-//                     seconds = 0
-//                     minutes += 1
-//                     if (minutes < 9 && minutes >= 0) {
-//                         timer.text = `0${minutes}:0${seconds}`
-//                     }
-//                     if (minutes < 0 && minutes > -9) {
-//                         timer.text = `-0${-minutes}:0${-seconds}`
-//                     }
-//                     if (minutes < -9) {
-//                         timer.text = `-${-minutes}:0${seconds}`
-//                     }
-//                     else {
-//                         timer.text = `0${minutes}:0${seconds}`
-//                     }
-//                 }
-//                 if(seconds === 0 && minutes < 0) {
-//                     seconds = -59
-//                     minutes += 1
-//                     if(minutes >= 0){
-//                     timer.text = `-0${minutes}:${-seconds}`
-//                 }
-//                 else {
-//                     timer.text = `-0${-minutes}:0${-seconds}`
-//                 }
-//                 }
-//             }
-//             if (direction === 'ArrowLeft') {
-//                 seconds -= 1
-//                 if (seconds <= 9 && minutes >= 0) {
-//                     timer.text = `0${minutes}:0${seconds}`
-//                 }
-//                 if (seconds < 0 && seconds >= -9 && minutes < 0) {
-//                     timer.text = `-0${-minutes}:0${-seconds}`
-//                 }
-//                 if (seconds > 9 && minutes >= 0) {
-//                     timer.text = `0${minutes}:${seconds}`
-//                 }
-//                 if (seconds < -9) {
-//                     timer.text = `-0${-minutes}:${-seconds}`
-//                 }
-//                 if (seconds === -60) {
-//                     seconds = 0
-//                     minutes -= 1
-//                     if (minutes < 9 && minutes >= 0) {
-//                         timer.text = `0${minutes}:0${seconds}`
-//                     }
-//                     if (minutes < 0 && minutes > -9) {
-//                         timer.text = `-0${-minutes}:0${-seconds}`
-//                     }
-//                     if (minutes < -9) {
-//                         timer.text = `-${-minutes}:0${seconds}`
-//                     }
-//                     else {
-//                         timer.text = `-0${-minutes}:0${seconds}`
-//                     }
-//                 }
-//                 if(seconds === 0 && minutes > 0) {
-//                     seconds = 59
-//                     minutes -= 1
-//                     timer.text = `0${minutes}:${seconds}`
-//                 }
-//             }
-//         }, 1000)
-//     }
-//     this.stop = () => {
-
-//         clearInterval(intervalID)
-//     }
-//     this.refresh = () => {
-//         duration = 0
-//     }
-
-//     Object.defineProperty(this, 'duration', {
-//         get: () => { return duration }
-//     })
-// }
-
-// StopWatch.prototype.tableSet = () => {
-//     console.log('it was set')
-// }
-
-
-
-// const sw = new StopWatch()
-
