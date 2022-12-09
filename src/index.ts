@@ -178,6 +178,12 @@ handleShadow.anchor.set(0.5, 0.5)
 handleShadow.position.x += 4
 handleShadow.position.y += 20
 
+const blink = PIXI.Sprite.from('./images/blink.png')
+blink.anchor.set(0.5, 0.5)
+blink.position.x = innerWidth / 2.2
+blink.position.y = innerHeight / 2
+blink.scale.set(0.5)
+
 
 const container = new PIXI.Container()
 container.width = door.width / 10
@@ -306,6 +312,14 @@ function startGame() {
     renderGame(null)
 }
 
+function newGame() {
+    sw.refresh()
+    headline.text = 'Click the handle'
+    app.stage.addChild(door)
+    app.stage.addChild(container)
+    bg.interactive = false
+}
+
 
 function renderGame(direction: string | null) {
     if (direction) {
@@ -317,12 +331,16 @@ function renderGame(direction: string | null) {
                 console.log(cipherArray[index])
                 if (index === cipherArray.length) {
                     sw.stop()
-                    setInterval(()=>{
+                    setTimeout(() => {
                         headline.text = "Yoooou Win!"
-                    app.stage.addChild(bg)
-                    app.stage.addChild(headline)
-                    headline.text = "Yooouu Win!"
-                    }, 1500)
+                        app.stage.removeChild(container)
+                        app.stage.removeChild(door)
+                        app.stage.addChild(blink)
+                        headline.text = "Yooouu Win!"
+                        bg.interactive = true
+                        bg.cursor = 'pointer'
+                        bg.on('pointerdown', newGame);
+                    }, 2000)
                 }
                 else {
                     drawCircleCipher(cipherArray[index].originalNumber)
