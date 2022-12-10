@@ -33,7 +33,7 @@ class StopWatch {
     intervalID: any;
     constructor() {
         this.seconds = 0
-        this.minutes = 0
+        this.minutes = 1
         this.duration = 0
         this.intervalID;
     }
@@ -96,6 +96,16 @@ class StopWatch {
                 if (this.seconds < -9) {
                     timer.text = `-0${-this.minutes}:${-this.seconds}`
                 }
+                if (this.seconds === -1) {
+                    if (this.minutes > 0) {
+                        this.seconds = 59
+                        this.minutes -= 1
+                        timer.text = `0${this.minutes}:${this.seconds}`
+                    }
+                    else {
+                        timer.text = `-0${-this.minutes}:0${-this.seconds}`
+                    }
+                }
                 if (this.seconds === -60) {
                     this.seconds = 0
                     this.minutes -= 1
@@ -109,19 +119,10 @@ class StopWatch {
                         timer.text = `-${-this.minutes}:0${this.seconds}`
                     }
                     else {
-                        timer.text = `0${this.minutes}:0${this.seconds}`
+                        timer.text = `-0${-this.minutes}:0${this.seconds}`
                     }
                 }
-                if (this.seconds === 0 && this.minutes < 0) {
-                    this.seconds = 59
-                    this.minutes -= 1
-                    if (this.minutes >= 0) {
-                        timer.text = `-0${this.minutes}:${-this.seconds}`
-                    }
-                    else {
-                        timer.text = `-0${-this.minutes}:0${-this.seconds}`
-                    }
-                }
+
             }
         }, 1000)
     }
